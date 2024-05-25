@@ -1,0 +1,29 @@
+/* global.css */
+
+.masonry-grid {
+    display: flex;
+    width: auto;
+    margin: 0 15px 0 15px;
+}
+
+.my-masonry-grid {
+    display: flex;
+    width: auto;
+    margin: 0 15px 0 15px;
+}
+
+@media (max-width: 1100px) {
+    .my-masonry-grid .masonry-grid {
+        flex-direction: column;
+    }
+}
+
+.masonry-grid_column {
+    margin: 0 15px 0 15px;
+    /* Adjust as needed */
+}
+
+a {
+    display: block;
+    text-decoration: none;
+}

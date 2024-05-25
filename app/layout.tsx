@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Ubuntu } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 const ubuntu = Ubuntu({ weight: "400", subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"] });
 const title = Ubuntu({ weight: "500", subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext"] });
@@ -19,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={ubuntu.className}>
-        <Header />{children}</body>
+        <Header />{children}<Footer /></body>
     </html>
   );
 }
