@@ -12,6 +12,24 @@ export type News = {
     categories: string[],
     relevance_score: number | null
 }
+
+export function mapToNewsType(data: any): News {
+    return {
+        uuid: data.uuid,
+        title: data.title,
+        description: data.description,
+        keywords: data.keywords,
+        snippet: data.snippet,
+        url: data.url,
+        image_url: data.image_url,
+        language: data.language,
+        published_at: new Date(data.published_at),
+        source: data.source,
+        categories: data.categories,
+        relevance_score: data.relevance_score || null,
+    };
+}
+
 export const otirikNews: News[] = [
     {
         "uuid": "fd1a4174-e6b6-4f55-ac15-0f77047c1746",

@@ -9,6 +9,9 @@ import MyVkIcon from '@/public/vk';
 import { HandThumbUpIcon, PaperAirplaneIcon } from '@heroicons/react/20/solid';
 import { useState, useEffect } from 'react';
 import { FacebookShareButton, TwitterShareButton, VKShareButton } from 'react-share';
+import { fetchArticleData } from './fetchArticle';
+import NewsPageLoading from '@/components/loaders/news-page-loading';
+import NotFoundError from '@/components/loaders/news-page-error';
 
 
 const link = "https://magzhan-kz.vercel.app/news/"
@@ -20,8 +23,23 @@ export default function NewsPage({ params }: { params: { uuid: string } }) {
     const [liked, setLiked] = useState<boolean>(false);
     const [likeNum, setLikeNum] = useState<number>(Math.floor(Math.random() * 100));
     const [newComment, setNewComment] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        async function getData() {
+            try {
+                const data = await fetchArticleData(uuid);
+                setArticle(data);
+            } catch (error) {
+                console.error('Error fetching article:', error);
+                //setArticle(otirikNews[0]);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        getData();
+
         const storedLikeNum = JSON.parse(localStorage.getItem(`likes-num-${uuid}`) || '0') || likeNum;
         const storedComments = JSON.parse(localStorage.getItem(`comments-${uuid}`) || '[]') || [];
         const storedLiked = JSON.parse(localStorage.getItem(`liked-${uuid}`) || 'false');
@@ -29,7 +47,6 @@ export default function NewsPage({ params }: { params: { uuid: string } }) {
         setLikeNum(storedLikeNum);
         setComments(storedComments);
         setLiked(storedLiked);
-        setArticle(otirikNews[0]);
 
     }, [uuid]);
 
@@ -66,7 +83,8 @@ export default function NewsPage({ params }: { params: { uuid: string } }) {
         localStorage.setItem(`liked-${uuid}`, JSON.stringify(newLikedStatus));
     }
 
-    if (!article) return <div>Loading...</div>;
+    if (loading) return <NewsPageLoading />;
+    if (!article) return <NotFoundError />;
 
     return (
         <>
