@@ -25,6 +25,7 @@ export default function Home() {
         setNews(data);
       } catch (error) {
         console.error('Error fetching article:', error);
+        setNews(otirikNews);
       } finally {
         setLoading(false);
       }

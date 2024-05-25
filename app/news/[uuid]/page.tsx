@@ -32,7 +32,7 @@ export default function NewsPage({ params }: { params: { uuid: string } }) {
                 setArticle(data);
             } catch (error) {
                 console.error('Error fetching article:', error);
-                //setArticle(otirikNews[0]);
+                setArticle(otirikNews[0]);
             } finally {
                 setLoading(false);
             }
